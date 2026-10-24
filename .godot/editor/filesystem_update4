@@ -1,3 +1,9 @@
-res://scenes/TestLevel.tscn
-res://player.gd
 res://Player.tscn
+res://player.gd
+res://scenes/TestLevel.tscn
+res://charecters/Player.tscn
+res://charecters/player/Player.tscn
+res://charecters/enemy/Enemy.tscn
+res://charecters/enemy/enemy.gd
+res://charecters/player/player.gd
+res://charecters/enemy/base_enemy.gd
