@@ -10,6 +10,7 @@ size = Vector2(128, 128)
 size = Vector2(254, 40)
 
 [node name="Player" type="CharacterBody2D" unique_id=1400714358 groups=["player"]]
+collision_layer = 2
 script = ExtResource("1_xwbi6")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=276026001]
@@ -19,6 +20,8 @@ texture = ExtResource("2_kne1u")
 shape = SubResource("RectangleShape2D_bbxxh")
 
 [node name="AttackArea" type="Area2D" parent="." unique_id=101435416]
+z_index = 10
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1365283329]
 position = Vector2(206, -1)
