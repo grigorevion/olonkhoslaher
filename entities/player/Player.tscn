@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bgl6wtnscfw2h" path="res://entities/player/player.gd" id="1_xwbi6"]
 [ext_resource type="Texture2D" uid="uid://cu7dvl7b0nbvo" path="res://assets/sprites/icon.svg" id="2_kne1u"]
+[ext_resource type="Script" uid="uid://b7qv5ien8sl4j" path="res://components/health_component.gd" id="3_l3c03"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bbxxh"]
 size = Vector2(128, 128)
@@ -40,5 +41,9 @@ position_smoothing_enabled = true
 drag_vertical_enabled = true
 drag_top_margin = 1.0
 drag_bottom_margin = 0.1
+
+[node name="HealthComponent" type="Node" parent="." unique_id=946341635]
+script = ExtResource("3_l3c03")
+metadata/_custom_type_script = "uid://b7qv5ien8sl4j"
 
 [connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]

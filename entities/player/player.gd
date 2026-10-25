@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @onready var attack_area = $AttackArea
 @onready var camera = $Camera2D
+@onready var health_component = $HealthComponent
 
 # --- НАСТРОЙКИ ДВИЖЕНИЯ ---
 const SPEED = 600.0
@@ -20,13 +21,13 @@ var cooldown_timer = 0.0
 var coyote_timer = 0.0
 var jump_buffer_timer = 0.0
 var facing_direction = 1
-
-# --- СПИСОК УДАРЕННЫХ ВРАГОВ ---
 var hit_enemies = [] 
 
 func _ready():
 	attack_area.monitoring = false
 	attack_area.visible = false
+	# Подключаем сигнал смерти
+	health_component.died.connect(_on_died)
 
 func _physics_process(delta: float) -> void:
 	# --- ПРЫЖКИ И ГРАВИТАЦИЯ ---
@@ -69,7 +70,7 @@ func _physics_process(delta: float) -> void:
 		attack_area.monitoring = true
 		attack_area.visible = true
 		
-		hit_enemies.clear() # Очищаем список при новом ударе!
+		hit_enemies.clear()
 		
 		attack_area.position.x = attack_offset * facing_direction
 		if facing_direction == -1:
@@ -91,18 +92,20 @@ func _physics_process(delta: float) -> void:
 			attack_area.visible = false
 
 func _on_attack_area_body_entered(body: Node2D) -> void:
-	# ПРОВЕРКА: Если мы уже ударили этого врага за этот взмах — выходим
 	if body in hit_enemies:
 		return
 		
 	if body.has_method("take_damage"):
-		hit_enemies.append(body) # Добавляем в список
+		hit_enemies.append(body)
 		body.take_damage(1)
 
 func take_damage(amount: int):
-	print("Игрок получил урон! HP: ", GameState.hp)
-	GameState.hp -= amount
-	
-	if GameState.hp <= 0:
-		print("Игрок умер!")
-		get_tree().reload_current_scene()
+	health_component.take_damage(amount)
+	print("Игрок получил урон! HP: ", health_component.current_hp)
+
+func _on_died():
+	print("Игрок умер!")
+	call_deferred("_reload_scene")
+
+func _reload_scene():
+	get_tree().reload_current_scene()

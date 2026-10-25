@@ -1,8 +1,13 @@
 [gd_scene format=3 uid="uid://r03mmtoe1o1m"]
 
-[ext_resource type="Script" uid="uid://ccse7hkd5uoyi" path="res://entities/enemy/base_enemy.gd" id="1_vlrxu"]
+[ext_resource type="Script" uid="uid://ccse7hkd5uoyi" path="res://entities/enemy/base_enemy.gd" id="1_e7xor"]
 [ext_resource type="Texture2D" uid="uid://cu7dvl7b0nbvo" path="res://assets/sprites/icon.svg" id="2_ul1q5"]
 [ext_resource type="Script" uid="uid://b7qv5ien8sl4j" path="res://components/health_component.gd" id="3_cn5l5"]
+[ext_resource type="PackedScene" uid="uid://cf66w8m7ckc4u" path="res://components/ai/StatePatrol.tscn" id="4_10nk3"]
+[ext_resource type="Script" uid="uid://jcnmgajixv8r" path="res://components/ai/state_machine.gd" id="4_maky4"]
+[ext_resource type="PackedScene" uid="uid://bnkhol1p68ysr" path="res://components/ai/StateReturn.tscn" id="5_maky4"]
+[ext_resource type="PackedScene" uid="uid://34eavyveok6h" path="res://components/ai/StateAlert.tscn" id="6_l5gw1"]
+[ext_resource type="PackedScene" uid="uid://6272hoqv6bkv" path="res://components/ai/StateChase.tscn" id="7_2nhrp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oatem"]
 size = Vector2(114, 110)
@@ -10,10 +15,10 @@ size = Vector2(114, 110)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vlrxu"]
 size = Vector2(114, 110)
 
-[node name="Enemy" type="CharacterBody2D" unique_id=1475197485]
+[node name="MeleeEnemy" type="CharacterBody2D" unique_id=1475197485]
 disable_mode = 1
 collision_layer = 4
-script = ExtResource("1_vlrxu")
+script = ExtResource("1_e7xor")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1184465285]
 position = Vector2(0, -5.9604645e-08)
@@ -33,5 +38,16 @@ shape = SubResource("RectangleShape2D_vlrxu")
 [node name="HealthComponent" type="Node" parent="." unique_id=1658760062]
 script = ExtResource("3_cn5l5")
 metadata/_custom_type_script = "uid://b7qv5ien8sl4j"
+
+[node name="StateMachine" type="Node" parent="." unique_id=2035568585]
+script = ExtResource("4_maky4")
+
+[node name="StatePatrol" parent="StateMachine" unique_id=1287048317 instance=ExtResource("4_10nk3")]
+
+[node name="StateReturn" parent="StateMachine" unique_id=1310868612 instance=ExtResource("5_maky4")]
+
+[node name="StateAlert" parent="StateMachine" unique_id=1686783635 instance=ExtResource("6_l5gw1")]
+
+[node name="StateChase" parent="StateMachine" unique_id=1619303213 instance=ExtResource("7_2nhrp")]
 
 [connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]

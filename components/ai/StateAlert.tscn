@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://34eavyveok6h"]
+
+[ext_resource type="Script" uid="uid://b2834x8jjtuu3" path="res://components/ai/state_alert.gd" id="1_a2ntj"]
+
+[node name="StateAlert" type="Node" unique_id=1686783635]
+script = ExtResource("1_a2ntj")

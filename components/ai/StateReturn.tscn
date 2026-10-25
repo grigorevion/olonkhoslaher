@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bnkhol1p68ysr"]
+
+[ext_resource type="Script" uid="uid://dn5p0dyqnn3q2" path="res://components/ai/state_return.gd" id="1_b2u3m"]
+
+[node name="StateReturn" type="Node" unique_id=1310868612]
+script = ExtResource("1_b2u3m")
