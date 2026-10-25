@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://ddv42jn8kolog"]
 
-[ext_resource type="Texture2D" uid="uid://cu7dvl7b0nbvo" path="res://icon.svg" id="1_df0lk"]
-[ext_resource type="PackedScene" uid="uid://c8ijvaxn8pjn8" path="res://charecters/player/Player.tscn" id="1_dojpo"]
-[ext_resource type="PackedScene" uid="uid://r03mmtoe1o1m" path="res://charecters/enemy/Enemy.tscn" id="2_1fpmp"]
+[ext_resource type="Texture2D" uid="uid://cu7dvl7b0nbvo" path="res://assets/sprites/icon.svg" id="1_jgpxo"]
+[ext_resource type="PackedScene" uid="uid://c8ijvaxn8pjn8" path="res://entities/player/Player.tscn" id="2_deiis"]
+[ext_resource type="PackedScene" uid="uid://r03mmtoe1o1m" path="res://entities/enemy/Enemy.tscn" id="3_8dm5k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bbxxh"]
 size = Vector2(4185, 60)
@@ -18,13 +18,13 @@ shape = SubResource("RectangleShape2D_bbxxh")
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=374806824]
 position = Vector2(490.4998, 619.00006)
 scale = Vector2(32.695313, 0.46874955)
-texture = ExtResource("1_df0lk")
+texture = ExtResource("1_jgpxo")
 
-[node name="Player" parent="." unique_id=1400714358 instance=ExtResource("1_dojpo")]
+[node name="Player" parent="." unique_id=1400714358 instance=ExtResource("2_deiis")]
 position = Vector2(82, 493)
 
-[node name="Enemy" parent="." unique_id=1475197485 instance=ExtResource("2_1fpmp")]
+[node name="Enemy" parent="." unique_id=1475197485 instance=ExtResource("3_8dm5k")]
 position = Vector2(954, 524)
 
-[node name="Enemy2" parent="." unique_id=1651737195 instance=ExtResource("2_1fpmp")]
+[node name="Enemy2" parent="." unique_id=1651737195 instance=ExtResource("3_8dm5k")]
 position = Vector2(1509, 526)

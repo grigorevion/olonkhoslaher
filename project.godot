@@ -13,7 +13,11 @@ config_version=5
 config/name="olonkho_slasher"
 run/main_scene="uid://ddv42jn8kolog"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://assets/sprites/icon.svg"
+
+[autoload]
+
+GameState="*uid://dseayajl8mify"
 
 [display]
 

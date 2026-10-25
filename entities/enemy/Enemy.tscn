@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://r03mmtoe1o1m"]
+
+[ext_resource type="Script" uid="uid://ccse7hkd5uoyi" path="res://entities/enemy/base_enemy.gd" id="1_vlrxu"]
+[ext_resource type="Texture2D" uid="uid://cu7dvl7b0nbvo" path="res://assets/sprites/icon.svg" id="2_ul1q5"]
+[ext_resource type="Script" uid="uid://b7qv5ien8sl4j" path="res://components/health_component.gd" id="3_cn5l5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oatem"]
+size = Vector2(114, 110)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vlrxu"]
+size = Vector2(114, 110)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1475197485]
+disable_mode = 1
+collision_layer = 4
+script = ExtResource("1_vlrxu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1184465285]
+position = Vector2(0, -5.9604645e-08)
+scale = Vector2(0.890625, 0.859375)
+texture = ExtResource("2_ul1q5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=484056632]
+shape = SubResource("RectangleShape2D_oatem")
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=76391676]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=909173523]
+shape = SubResource("RectangleShape2D_vlrxu")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1658760062]
+script = ExtResource("3_cn5l5")
+metadata/_custom_type_script = "uid://b7qv5ien8sl4j"
+
+[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]

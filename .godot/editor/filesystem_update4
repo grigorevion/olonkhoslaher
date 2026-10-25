@@ -1,4 +1,11 @@
-res://scenes/TestLevel.tscn
 res://charecters/enemy/base_enemy.gd
-res://charecters/player/Player.tscn
 res://charecters/enemy/Enemy.tscn
+res://charecters/player/player.gd
+res://scenes/TestLevel.tscn
+res://charecters/player/Player.tscn
+res://entities/player/Player.tscn
+res://world/levels/TestLevel.tscn
+res://entities/enemy/Enemy.tscn
+res://components/HealthComponent.tscn
+res://components/health_component.gd
+res://entities/enemy/base_enemy.gd
