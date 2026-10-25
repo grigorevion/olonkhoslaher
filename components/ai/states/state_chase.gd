@@ -1,21 +1,21 @@
-extends "res://components/ai/state.gd"
+extends "res://components/ai/base/state.gd"
 
 var turn_timer = 0.0
 var is_turning = false
 
 func enter() -> void:
-	state_machine.parent.get_node("Sprite2D").modulate = Color(1, 0.3, 0.3) # Красный
+	state_machine.parent.get_node("Sprite2D").modulate = Color(1, 0.3, 0.3)
 	turn_timer = 0.0
 	is_turning = false
+	state_machine.parent.direction = 1 if state_machine.parent.player_ref.global_position.x > state_machine.parent.global_position.x else -1
 
 func physics_update(delta: float) -> void:
 	var enemy = state_machine.parent
 	var target_x = enemy.player_ref.global_position.x
 	var target_dir = 1 if target_x > enemy.global_position.x else -1
 	
-	# Если игрок убежал слишком далеко, забываем его и возвращаемся
 	if enemy.global_position.distance_to(enemy.player_ref.global_position) > enemy.detection_radius * 1.5:
-		state_machine.transition_to("return")
+		state_machine.transition_to("alert")
 		return
 		
 	if target_dir != enemy.direction and not is_turning:

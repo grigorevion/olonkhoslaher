@@ -9,3 +9,8 @@ res://components/ai/state_return.gd
 res://entities/enemy/base_enemy.gd
 res://entities/enemy/MeleeEnemy.tscn
 res://world/levels/TestLevel.tscn
+res://components/ai/states/state_alert.gd
+res://components/ai/states/state_patrol.gd
+res://components/ai/states/state_chase.gd
+res://components/ai/states/state_return.gd
+res://components/ai/base/state_machine.gd

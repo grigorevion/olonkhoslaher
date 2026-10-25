@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cf66w8m7ckc4u"]
 
-[ext_resource type="Script" uid="uid://dtpi3qh1sm3q1" path="res://components/ai/state_patrol.gd" id="1_682b5"]
+[ext_resource type="Script" uid="uid://dtpi3qh1sm3q1" path="res://components/ai/states/state_patrol.gd" id="1_682b5"]
 
 [node name="StatePatrol" type="Node" unique_id=1287048317]
 script = ExtResource("1_682b5")

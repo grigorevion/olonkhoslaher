@@ -20,6 +20,10 @@ func transition_to(state_name: String) -> void:
 	current_state.enter()
 
 func _physics_process(delta: float) -> void:
+	# ГЛАВНЫЙ ФИКС: Если враг в стане (откинут), не даем состояниям менять его скорость
+	if parent and parent.knockback_timer > 0.0:
+		return
+		
 	if current_state:
 		current_state.physics_update(delta)
 

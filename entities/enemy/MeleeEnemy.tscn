@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://ccse7hkd5uoyi" path="res://entities/enemy/base_enemy.gd" id="1_e7xor"]
 [ext_resource type="Texture2D" uid="uid://cu7dvl7b0nbvo" path="res://assets/sprites/icon.svg" id="2_ul1q5"]
 [ext_resource type="Script" uid="uid://b7qv5ien8sl4j" path="res://components/health_component.gd" id="3_cn5l5"]
-[ext_resource type="PackedScene" uid="uid://cf66w8m7ckc4u" path="res://components/ai/StatePatrol.tscn" id="4_10nk3"]
-[ext_resource type="Script" uid="uid://jcnmgajixv8r" path="res://components/ai/state_machine.gd" id="4_maky4"]
-[ext_resource type="PackedScene" uid="uid://bnkhol1p68ysr" path="res://components/ai/StateReturn.tscn" id="5_maky4"]
-[ext_resource type="PackedScene" uid="uid://34eavyveok6h" path="res://components/ai/StateAlert.tscn" id="6_l5gw1"]
-[ext_resource type="PackedScene" uid="uid://6272hoqv6bkv" path="res://components/ai/StateChase.tscn" id="7_2nhrp"]
+[ext_resource type="PackedScene" uid="uid://cf66w8m7ckc4u" path="res://components/ai/states/StatePatrol.tscn" id="4_10nk3"]
+[ext_resource type="Script" uid="uid://jcnmgajixv8r" path="res://components/ai/base/state_machine.gd" id="4_maky4"]
+[ext_resource type="PackedScene" uid="uid://bnkhol1p68ysr" path="res://components/ai/states/StateReturn.tscn" id="5_maky4"]
+[ext_resource type="PackedScene" uid="uid://34eavyveok6h" path="res://components/ai/states/StateAlert.tscn" id="6_l5gw1"]
+[ext_resource type="PackedScene" uid="uid://6272hoqv6bkv" path="res://components/ai/states/StateChase.tscn" id="7_2nhrp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oatem"]
 size = Vector2(114, 110)
@@ -19,6 +19,7 @@ size = Vector2(114, 110)
 disable_mode = 1
 collision_layer = 4
 script = ExtResource("1_e7xor")
+knockback_power = 600.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1184465285]
 position = Vector2(0, -5.9604645e-08)

@@ -34,20 +34,18 @@ func _ready():
 		state_machine.transition_to("patrol")
 
 func _physics_process(delta: float) -> void:
-	# Гравитация
+	# Только гравитация
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
 	# Откидывание (если получили урон)
 	if knockback_timer > 0.0:
 		knockback_timer -= delta
-		velocity.x = move_toward(velocity.x, 0, 1500 * delta)
+		# Плавно тормозим по горизонтали
+		velocity.x = move_toward(velocity.x, 0, 3000 * delta)
 	else:
-		# Если не в стане — проверяем, не увидел ли враг игрока
-		if player_ref and state_machine and state_machine.current_state == state_machine.states["patrol"]:
-			var dist = global_position.distance_to(player_ref.global_position)
-			if dist < detection_radius:
-				state_machine.transition_to("alert")
+		# Вся логика ИИ теперь внутри StateMachine!
+		pass
 
 	move_and_slide()
 
@@ -56,12 +54,16 @@ func take_damage(damage_amount: int, _knockback: float = 0.0):
 		$HealthComponent.take_damage(damage_amount)
 		print("Враг получил урон! Осталось HP: ", $HealthComponent.current_hp)
 	
+	velocity.x = 0 # Сбрасываем скорость
+	
 	if player_ref:
 		if global_position.x > player_ref.global_position.x:
 			velocity.x = knockback_power
 		else:
 			velocity.x = -knockback_power
-	knockback_timer = 0.2
+			
+	velocity.y = -250.0 # Подбрасываем вверх
+	knockback_timer = 0.4
 
 func _on_died():
 	call_deferred("queue_free")
