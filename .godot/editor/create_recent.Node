@@ -1,7 +1,7 @@
-Node
-HealthComponent
 CollisionShape2D
 Area2D
+Node
+HealthComponent
 Sprite2D
 Camera2D
 CharacterBody2D
