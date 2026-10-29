@@ -1,0 +1,54 @@
+[gd_scene format=4 uid="uid://hn6g0mnvuklo"]
+
+[ext_resource type="Texture2D" uid="uid://b1hfuyu3qaxi1" path="res://assets/sprites/Ground.png" id="2_tt5pu"]
+[ext_resource type="Script" uid="uid://beo1kbs1vbrot" path="res://world/levels/tile_map_layer.gd" id="3_3km53"]
+[ext_resource type="PackedScene" uid="uid://c8ijvaxn8pjn8" path="res://entities/player/Player.tscn" id="3_t74am"]
+[ext_resource type="Texture2D" uid="uid://cq1v01nw2g7rr" path="res://assets/sprites/Sky.png" id="4_pxvux"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t74am"]
+texture = ExtResource("2_tt5pu")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+0:3/0 = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+1:3/0 = 0
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+
+[sub_resource type="TileSet" id="TileSet_ver1u"]
+tile_size = Vector2i(128, 128)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_t74am")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixtx3"]
+texture = ExtResource("4_pxvux")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_tt5pu"]
+tile_size = Vector2i(128, 128)
+sources/1 = SubResource("TileSetAtlasSource_ixtx3")
+
+[node name="Node2D" type="Node2D" unique_id=698730273]
+
+[node name="Player" parent="." unique_id=1400714358 instance=ExtResource("3_t74am")]
+position = Vector2(65, -63)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=862580026]
+position = Vector2(0, -3)
+tile_map_data = PackedByteArray("AAD8/wAAAAABAAEAAAD9/wAAAAABAAEAAAD+/wAAAAABAAEAAAD//wAAAAABAAEAAAAAAAAAAAABAAEAAAABAAAAAAABAAEAAAACAAAAAAABAAEAAAADAAAAAAABAAEAAAAEAAAAAAABAAEAAAAFAAAAAAABAAEAAAAGAAAAAAABAAEAAAD8/wEAAAAAAAEAAAD9/wEAAAAAAAEAAAD+/wEAAAAAAAEAAAD//wEAAAAAAAEAAAAAAAEAAAAAAAEAAAABAAEAAAAAAAEAAAACAAEAAAAAAAEAAAADAAEAAAAAAAEAAAAEAAEAAAAAAAEAAAAFAAEAAAAAAAEAAAAGAAEAAAAAAAEAAAD8/wIAAAAAAAEAAAD9/wIAAAAAAAEAAAD+/wIAAAAAAAEAAAD//wIAAAAAAAEAAAAAAAIAAAAAAAEAAAABAAIAAAAAAAEAAAACAAIAAAAAAAEAAAADAAIAAAAAAAEAAAAEAAIAAAAAAAEAAAAFAAIAAAAAAAEAAAAGAAIAAAAAAAEAAAA=")
+tile_set = SubResource("TileSet_ver1u")
+script = ExtResource("3_3km53")
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="." unique_id=1820408902]
+tile_set = SubResource("TileSet_tt5pu")

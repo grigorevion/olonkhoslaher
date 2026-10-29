@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddkyh8jt4ne2w"
-path="res://.godot/imported/1644006182_10-abrakadabra-fun-p-pikselnii-blok-zemli-25.jpg-230b5ddef53e205cc3effe2919153a83.ctex"
+uid="uid://b1hfuyu3qaxi1"
+path="res://.godot/imported/Ground.png-90872a1814027741ccf42b40f420b7fd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/1644006182_10-abrakadabra-fun-p-pikselnii-blok-zemli-25.jpg"
-dest_files=["res://.godot/imported/1644006182_10-abrakadabra-fun-p-pikselnii-blok-zemli-25.jpg-230b5ddef53e205cc3effe2919153a83.ctex"]
+source_file="res://assets/sprites/Ground.png"
+dest_files=["res://.godot/imported/Ground.png-90872a1814027741ccf42b40f420b7fd.ctex"]
 
 [params]
 

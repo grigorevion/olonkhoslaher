@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://r03mmtoe1o1m"]
 
 [ext_resource type="Script" uid="uid://ccse7hkd5uoyi" path="res://entities/enemy/base_enemy.gd" id="1_e7xor"]
+[ext_resource type="Resource" uid="uid://b02khksfg6ksv" path="res://entities/enemy/data/basic_abasy.tres" id="2_maky4"]
 [ext_resource type="Texture2D" uid="uid://cu7dvl7b0nbvo" path="res://assets/sprites/icon.svg" id="2_ul1q5"]
 [ext_resource type="Script" uid="uid://b7qv5ien8sl4j" path="res://components/health_component.gd" id="3_cn5l5"]
 [ext_resource type="PackedScene" uid="uid://cf66w8m7ckc4u" path="res://components/ai/states/StatePatrol.tscn" id="4_10nk3"]
@@ -8,33 +9,26 @@
 [ext_resource type="PackedScene" uid="uid://bnkhol1p68ysr" path="res://components/ai/states/StateReturn.tscn" id="5_maky4"]
 [ext_resource type="PackedScene" uid="uid://34eavyveok6h" path="res://components/ai/states/StateAlert.tscn" id="6_l5gw1"]
 [ext_resource type="PackedScene" uid="uid://6272hoqv6bkv" path="res://components/ai/states/StateChase.tscn" id="7_2nhrp"]
+[ext_resource type="PackedScene" uid="uid://pc7dpd3mcjuy" path="res://components/ai/states/StateAttack.tscn" id="10_2nhrp"]
+[ext_resource type="PackedScene" uid="uid://d3d5ytfwge3ev" path="res://components/combat/HitboxComponent.tscn" id="10_l5gw1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oatem"]
-size = Vector2(114, 110)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vlrxu"]
 size = Vector2(114, 110)
 
 [node name="MeleeEnemy" type="CharacterBody2D" unique_id=1475197485]
 disable_mode = 1
 collision_layer = 4
 script = ExtResource("1_e7xor")
-knockback_power = 600.0
+data = ExtResource("2_maky4")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1184465285]
 position = Vector2(0, -5.9604645e-08)
 scale = Vector2(0.890625, 0.859375)
 texture = ExtResource("2_ul1q5")
+offset = Vector2(0, -9)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=484056632]
 shape = SubResource("RectangleShape2D_oatem")
-
-[node name="DamageArea" type="Area2D" parent="." unique_id=76391676]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=909173523]
-shape = SubResource("RectangleShape2D_vlrxu")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1658760062]
 script = ExtResource("3_cn5l5")
@@ -51,4 +45,7 @@ script = ExtResource("4_maky4")
 
 [node name="StateChase" parent="StateMachine" unique_id=1619303213 instance=ExtResource("7_2nhrp")]
 
-[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
+[node name="StateAttack" parent="StateMachine" unique_id=246783993 instance=ExtResource("10_2nhrp")]
+
+[node name="HitboxComponent" parent="." unique_id=1685417505 instance=ExtResource("10_l5gw1")]
+position = Vector2(-121, -3)

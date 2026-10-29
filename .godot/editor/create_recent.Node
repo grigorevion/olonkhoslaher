@@ -1,10 +1,14 @@
+TileMap
 TileMapLayer
+CollisionPolygon2D
+CharacterBody2D
 Node
 HealthComponent
 CollisionShape2D
 Area2D
+Node
+HealthComponent
 Sprite2D
 Camera2D
-CharacterBody2D
 StaticBody2D
 Node2D
