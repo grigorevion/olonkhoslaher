@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cjs6ruqyepe68"]
+
+[ext_resource type="Script" uid="uid://chiru88wkfwpl" path="res://components/ai/player_states/player_state_attack.gd" id="1_417be"]
+
+[node name="PlayerStateAttack" type="Node" unique_id=1984945848]
+script = ExtResource("1_417be")

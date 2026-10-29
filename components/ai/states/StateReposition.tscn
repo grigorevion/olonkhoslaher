@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bva1guhi0wiv2"]
+
+[ext_resource type="Script" uid="uid://byatodck2xvjd" path="res://components/ai/states/state_reposition.gd" id="1_e81fp"]
+
+[node name="StateReposition" type="Node" unique_id=93846654]
+script = ExtResource("1_e81fp")

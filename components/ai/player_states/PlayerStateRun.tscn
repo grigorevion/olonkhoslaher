@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bxoctc33o7f5t"]
+
+[ext_resource type="Script" uid="uid://f0rxksw101w5" path="res://components/ai/player_states/player_state_run.gd" id="1_xppav"]
+
+[node name="PlayerStateRun" type="Node" unique_id=854600544]
+script = ExtResource("1_xppav")

@@ -5,5 +5,8 @@
 
 [resource]
 script = ExtResource("1_8sypu")
+attack_range = 180.0
+attack_min_range = 120.0
+reposition_speed = 500.0
 sprite_texture = ExtResource("2_hq74d")
 metadata/_custom_type_script = "uid://cypuge4lwwmer"

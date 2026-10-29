@@ -10,7 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://34eavyveok6h" path="res://components/ai/states/StateAlert.tscn" id="6_l5gw1"]
 [ext_resource type="PackedScene" uid="uid://6272hoqv6bkv" path="res://components/ai/states/StateChase.tscn" id="7_2nhrp"]
 [ext_resource type="PackedScene" uid="uid://pc7dpd3mcjuy" path="res://components/ai/states/StateAttack.tscn" id="10_2nhrp"]
-[ext_resource type="PackedScene" uid="uid://d3d5ytfwge3ev" path="res://components/combat/HitboxComponent.tscn" id="10_l5gw1"]
+[ext_resource type="PackedScene" uid="uid://d1tm8ysshdc4m" path="res://components/combat/MeleeWeapon.tscn" id="11_2nhrp"]
+[ext_resource type="PackedScene" uid="uid://bva1guhi0wiv2" path="res://components/ai/states/StateReposition.tscn" id="11_udfuu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oatem"]
 size = Vector2(114, 110)
@@ -47,5 +48,8 @@ script = ExtResource("4_maky4")
 
 [node name="StateAttack" parent="StateMachine" unique_id=246783993 instance=ExtResource("10_2nhrp")]
 
-[node name="HitboxComponent" parent="." unique_id=1685417505 instance=ExtResource("10_l5gw1")]
-position = Vector2(-121, -3)
+[node name="StateReposition" parent="StateMachine" unique_id=93846654 instance=ExtResource("11_udfuu")]
+
+[node name="MeleeWeapon" parent="." unique_id=379556829 instance=ExtResource("11_2nhrp")]
+position = Vector2(-137, -12)
+scale = Vector2(1, 1.8)

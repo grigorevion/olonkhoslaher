@@ -1,36 +1,74 @@
-extends CharacterBody2D
+extends Entity
 
-@onready var attack_area = $AttackArea
-@onready var camera = $Camera2D
-@onready var health_component = $HealthComponent
+# --- ДАННЫЕ ---
+@export var data: PlayerData
 
-# --- НАСТРОЙКИ ДВИЖЕНИЯ ---
-const SPEED = 600.0
-const JUMP_VELOCITY = -1500.0
-var gravity = 4000.0
-var fall_multiplier = 1.5
+# --- ПЕРЕМЕННЫЕ (Через геттеры) ---
+var speed: float:
+	get: return data.speed if data else 600.0
+var jump_velocity: float:
+	get: return data.jump_velocity if data else -1500.0
+var gravity: float:
+	get: return data.gravity if data else 4000.0
+var fall_multiplier: float:
+	get: return data.fall_multiplier if data else 1.5
+var attack_duration: float:
+	get: return data.attack_duration if data else 0.3
+var attack_knockback: float:
+	get: return data.attack_knockback if data else 400.0
+var dash_speed: float:
+	get: return data.dash_speed if data else 1500.0
+var dash_duration: float:
+	get: return data.dash_duration if data else 0.2
+var dash_cooldown: float:
+	get: return data.dash_cooldown if data else 0.8
 
-# --- НАСТРОЙКИ АТАКИ ---
-@export var attack_cooldown = 0.4
-@export var attack_duration = 0.2
-@export var attack_offset = 50.0
+# --- ВВОД ---
+var input_direction: float = 0.0
+var input_attack_pressed: bool = false
+var input_dash_pressed: bool = false
 
-# --- ПЕРЕМЕННЫЕ ---
-var attack_timer = 0.0
-var cooldown_timer = 0.0
+# --- ЛОГИКА ---
+var facing_direction = 1
 var coyote_timer = 0.0
 var jump_buffer_timer = 0.0
-var facing_direction = 1
-var hit_enemies = [] 
+var dash_cooldown_timer = 0.0
+var is_stealthed: bool = false # <--- Флаг невидимости
+var weapon_base_pos_x = 0.0
+var weapon_base_scale_x = 1.0
+
+@onready var health_component = $HealthComponent
+@onready var camera = $Camera2D
 
 func _ready():
-	attack_area.monitoring = false
-	attack_area.visible = false
-	# Подключаем сигнал смерти
+	if data and has_node("HealthComponent"):
+		$HealthComponent.max_hp = data.max_hp
+		$HealthComponent.current_hp = data.max_hp
+
 	health_component.died.connect(_on_died)
+	
+	if has_node("MeleeWeapon"):
+		weapon_base_pos_x = abs($MeleeWeapon.position.x)
+		weapon_base_scale_x = abs($MeleeWeapon.scale.x)
+	
+	state_machine = $StateMachine
+	if state_machine:
+		state_machine.parent = self
+		state_machine.add_state(State.IDLE, $StateMachine/PlayerStateIdle)
+		state_machine.add_state(State.RUN, $StateMachine/PlayerStateRun)
+		state_machine.add_state(State.JUMP, $StateMachine/PlayerStateJump)
+		state_machine.add_state(State.ATTACK, $StateMachine/PlayerStateAttack)
+		state_machine.add_state(State.DASH, $StateMachine/PlayerStateDash) # <--- Новое состояние
+		state_machine.transition_to(State.IDLE)
 
 func _physics_process(delta: float) -> void:
-	# --- ПРЫЖКИ И ГРАВИТАЦИЯ ---
+	input_direction = Input.get_axis("move_left", "move_right")
+	input_attack_pressed = Input.is_action_just_pressed("attack")
+	input_dash_pressed = Input.is_action_just_pressed("dash") # <--- Читаем кнопку рывка
+	
+	if dash_cooldown_timer > 0.0:
+		dash_cooldown_timer -= delta
+	
 	if is_on_floor():
 		coyote_timer = 0.1
 	else:
@@ -42,64 +80,28 @@ func _physics_process(delta: float) -> void:
 		jump_buffer_timer -= delta
 
 	if not is_on_floor():
-		var current_gravity = gravity
-		if velocity.y > 0:
-			current_gravity *= fall_multiplier
-		velocity.y += current_gravity * delta
-
-	if jump_buffer_timer > 0.0 and coyote_timer > 0.0:
-		velocity.y = JUMP_VELOCITY
-		jump_buffer_timer = 0.0
-		coyote_timer = 0.0
-
-	# --- ДВИЖЕНИЕ ---
-	var direction := Input.get_axis("move_left", "move_right")
-	if direction:
-		facing_direction = direction
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED * 4 * delta)
+		velocity.y += gravity * delta
 
 	move_and_slide()
 
-	# --- ЛОГИКА АТАКИ ---
-	if cooldown_timer > 0.0:
-		cooldown_timer -= delta
+func set_facing(dir: int):
+	facing_direction = dir
+	if has_node("Sprite2D"):
+		$Sprite2D.flip_h = dir < 0
 		
-	if Input.is_action_just_pressed("attack") and attack_timer <= 0.0 and cooldown_timer <= 0.0:
-		attack_area.monitoring = true
-		attack_area.visible = true
-		
-		hit_enemies.clear()
-		
-		attack_area.position.x = attack_offset * facing_direction
-		if facing_direction == -1:
-			attack_area.rotation = PI
-		else:
-			attack_area.rotation = 0
-		
-		attack_timer = attack_duration
-		cooldown_timer = attack_cooldown
-		velocity.x = facing_direction * 400
-		
-		var tween = create_tween()
-		tween.tween_property(attack_area, "scale", Vector2(1.0, 1.0), 0.1).from(Vector2(0.5, 1.5))
-		
-	if attack_timer > 0.0:
-		attack_timer -= delta
-		if attack_timer <= 0.0:
-			attack_area.monitoring = false
-			attack_area.visible = false
+	if has_node("MeleeWeapon"):
+		var weapon = $MeleeWeapon
+		weapon.position.x = weapon_base_pos_x * dir
+		weapon.scale.x = weapon_base_scale_x * dir
 
-func _on_attack_area_body_entered(body: Node2D) -> void:
-	if body in hit_enemies:
-		return
-		
-	if body.has_method("take_damage"):
-		hit_enemies.append(body)
-		body.take_damage(1)
+func play_animation(anim_name: String):
+	if has_node("Sprite2D"):
+		match anim_name:
+			"attack": $Sprite2D.modulate = Color(1, 0.8, 0.8)
+			"dash": $Sprite2D.modulate = Color(0.5, 0.8, 1.0, 0.5) # Полупрозрачный синий
+			_: $Sprite2D.modulate = Color(1, 1, 1)
 
-func take_damage(amount: int):
+func take_damage(amount: int, _knockback: float = 0.0):
 	health_component.take_damage(amount)
 	print("Игрок получил урон! HP: ", health_component.current_hp)
 

@@ -1,38 +1,30 @@
 [gd_scene format=3 uid="uid://c8ijvaxn8pjn8"]
 
 [ext_resource type="Script" uid="uid://bgl6wtnscfw2h" path="res://entities/player/player.gd" id="1_xwbi6"]
+[ext_resource type="Resource" uid="uid://rhd6wbtp5r4c" path="res://entities/player/data/player_data.tres" id="2_ak4un"]
 [ext_resource type="Texture2D" uid="uid://cu7dvl7b0nbvo" path="res://assets/sprites/icon.svg" id="2_kne1u"]
 [ext_resource type="Script" uid="uid://b7qv5ien8sl4j" path="res://components/health_component.gd" id="3_l3c03"]
+[ext_resource type="PackedScene" uid="uid://d1tm8ysshdc4m" path="res://components/combat/MeleeWeapon.tscn" id="4_eaotn"]
+[ext_resource type="Script" uid="uid://jcnmgajixv8r" path="res://components/ai/base/state_machine.gd" id="5_q57vx"]
+[ext_resource type="PackedScene" uid="uid://cjs6ruqyepe68" path="res://components/ai/player_states/PlayerStateAttack.tscn" id="6_ak4un"]
+[ext_resource type="PackedScene" uid="uid://cn88mti6ppc5k" path="res://components/ai/player_states/PlayerStateIdle.tscn" id="7_1ms0h"]
+[ext_resource type="PackedScene" uid="uid://d2wdwja6cp10y" path="res://components/ai/player_states/PlayerStateDash.tscn" id="7_2rv2u"]
+[ext_resource type="PackedScene" uid="uid://brtihirxdpake" path="res://components/ai/player_states/PlayerStateJump.tscn" id="8_2rv2u"]
+[ext_resource type="PackedScene" uid="uid://bxoctc33o7f5t" path="res://components/ai/player_states/PlayerStateRun.tscn" id="9_mq27t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bbxxh"]
 size = Vector2(128, 128)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6g2ue"]
-size = Vector2(254, 40)
-
 [node name="Player" type="CharacterBody2D" unique_id=1400714358 groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_xwbi6")
+data = ExtResource("2_ak4un")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=276026001]
 texture = ExtResource("2_kne1u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=563650968]
 shape = SubResource("RectangleShape2D_bbxxh")
-
-[node name="AttackArea" type="Area2D" parent="." unique_id=101435416]
-z_index = 10
-collision_mask = 7
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1365283329]
-position = Vector2(206, -1)
-shape = SubResource("RectangleShape2D_6g2ue")
-
-[node name="Sprite2D" type="Sprite2D" parent="AttackArea" unique_id=1477280861]
-modulate = Color(1, 0, 0, 0.5019608)
-position = Vector2(206, -1)
-scale = Vector2(1.984375, 0.31249997)
-texture = ExtResource("2_kne1u")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1086144650]
 position = Vector2(0, -400)
@@ -46,4 +38,19 @@ drag_bottom_margin = 0.1
 script = ExtResource("3_l3c03")
 metadata/_custom_type_script = "uid://b7qv5ien8sl4j"
 
-[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[node name="MeleeWeapon" parent="." unique_id=631570785 instance=ExtResource("4_eaotn")]
+position = Vector2(170, 0)
+scale = Vector2(3, 0.6)
+
+[node name="StateMachine" type="Node" parent="." unique_id=511885056]
+script = ExtResource("5_q57vx")
+
+[node name="PlayerStateDash" parent="StateMachine" unique_id=479910861 instance=ExtResource("7_2rv2u")]
+
+[node name="PlayerStateAttack" parent="StateMachine" unique_id=1984945848 instance=ExtResource("6_ak4un")]
+
+[node name="PlayerStateIdle" parent="StateMachine" unique_id=179954534 instance=ExtResource("7_1ms0h")]
+
+[node name="PlayerStateJump" parent="StateMachine" unique_id=895720019 instance=ExtResource("8_2rv2u")]
+
+[node name="PlayerStateRun" parent="StateMachine" unique_id=854600544 instance=ExtResource("9_mq27t")]
