@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://brtihirxdpake"]
+
+[ext_resource type="Script" uid="uid://bks5mvlxjp0tm" path="res://components/ai/player_states/player_state_jump.gd" id="1_f5j3o"]
+
+[node name="PlayerStateJump" type="Node" unique_id=895720019]
+script = ExtResource("1_f5j3o")

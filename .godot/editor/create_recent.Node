@@ -1,14 +1,17 @@
+<<<<<<< HEAD
 TileMap
 TileMapLayer
 CollisionPolygon2D
 CharacterBody2D
 Node
 HealthComponent
+=======
+Node
+Node2D
+Sprite2D
+>>>>>>> 1efef2dd72d40f7b1afd3686770276e84aad4719
 CollisionShape2D
 Area2D
-Node
 HealthComponent
-Sprite2D
 Camera2D
 StaticBody2D
-Node2D

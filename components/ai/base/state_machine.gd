@@ -1,16 +1,18 @@
 extends Node
 
-var parent: CharacterBody2D
+var parent: Entity
 var current_state = null
 var states: Dictionary = {}
 
-func add_state(state_name: String, state_node) -> void:
+# Теперь принимаем int (из enum), а не String
+func add_state(state_name: int, state_node) -> void:
 	states[state_name] = state_node
 	state_node.state_machine = self
 
-func transition_to(state_name: String) -> void:
+# Переключение по int
+func transition_to(state_name: int) -> void:
 	if not states.has(state_name):
-		print("Ошибка: Состояние '", state_name, "' не найдено!")
+		print("Ошибка: Состояние ", state_name, " не найдено!")
 		return
 		
 	if current_state:
@@ -20,7 +22,6 @@ func transition_to(state_name: String) -> void:
 	current_state.enter()
 
 func _physics_process(delta: float) -> void:
-	# ГЛАВНЫЙ ФИКС: Если враг в стане (откинут), не даем состояниям менять его скорость
 	if parent and parent.knockback_timer > 0.0:
 		return
 		

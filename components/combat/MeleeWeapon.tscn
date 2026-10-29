@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://d1tm8ysshdc4m"]
+
+[ext_resource type="Script" uid="uid://dchbdc5fsaqnm" path="res://components/combat/melee_weapon_component.gd" id="1_j7772"]
+[ext_resource type="PackedScene" uid="uid://d3d5ytfwge3ev" path="res://components/combat/HitboxComponent.tscn" id="2_m8qys"]
+
+[node name="MeleeWeapon" type="Node2D" unique_id=631570785]
+script = ExtResource("1_j7772")
+
+[node name="HitboxComponent" parent="." unique_id=1685417505 instance=ExtResource("2_m8qys")]

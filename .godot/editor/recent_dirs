@@ -1,6 +1,8 @@
 res://assets/sprites/
 res://world/levels/
 res://components/ai/base/
+res://entities/player/data/
+res://components/combat/
 res://entities/enemy/data/
 res://components/ai/
 res://entities/enemy/

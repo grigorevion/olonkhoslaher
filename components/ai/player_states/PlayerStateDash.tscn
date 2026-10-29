@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d2wdwja6cp10y"]
+
+[ext_resource type="Script" uid="uid://cdaxwwcb30oxt" path="res://components/ai/player_states/player_state_dash.gd" id="1_84j6x"]
+
+[node name="PlayerStateDash" type="Node" unique_id=479910861]
+script = ExtResource("1_84j6x")

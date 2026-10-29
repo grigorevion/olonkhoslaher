@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cn88mti6ppc5k"]
+
+[ext_resource type="Script" uid="uid://ci2xr1ycgplg5" path="res://components/ai/player_states/player_state_idle.gd" id="1_ji5pc"]
+
+[node name="PlayerStateIdle" type="Node" unique_id=179954534]
+script = ExtResource("1_ji5pc")
