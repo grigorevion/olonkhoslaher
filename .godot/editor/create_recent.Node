@@ -1,0 +1,10 @@
+TileMapLayer
+Node
+HealthComponent
+CollisionShape2D
+Area2D
+Sprite2D
+Camera2D
+CharacterBody2D
+StaticBody2D
+Node2D
