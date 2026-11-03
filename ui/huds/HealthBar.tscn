@@ -16,6 +16,11 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="LabelSettings" id="LabelSettings_84j6x"]
+font_size = 18
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
 [node name="HealthBar" type="CanvasLayer" unique_id=887760113]
 script = ExtResource("1_xqxkl")
 
@@ -45,3 +50,17 @@ offset_bottom = 40.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_c5w6k")
 max_value = 3.0
 value = 3.0
+show_percentage = false
+
+[node name="HealthLabel" type="Label" parent="HUD" unique_id=19704243]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 310.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 10
+label_settings = SubResource("LabelSettings_84j6x")
+horizontal_alignment = 1
+vertical_alignment = 1

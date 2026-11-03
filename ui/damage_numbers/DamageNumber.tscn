@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dwh3apoveol0w"]
+
+[ext_resource type="Script" uid="uid://b5bjaxapt3xja" path="res://ui/damage_numbers/damage_number.gd" id="1_bv0u6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bbxxh"]
+font_size = 20
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="DamageNumber" type="Node2D" unique_id=1985384774]
+script = ExtResource("1_bv0u6")
+
+[node name="Label" type="Label" parent="." unique_id=2063171367]
+offset_left = -15.0
+offset_right = 25.0
+offset_bottom = 28.0
+text = "0"
+label_settings = SubResource("LabelSettings_bbxxh")
+horizontal_alignment = 1
+vertical_alignment = 1

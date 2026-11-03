@@ -2,6 +2,8 @@ extends Entity
 
 # --- ДАННЫЕ ---
 @export var data: EnemyData
+@export var drop_scene: PackedScene
+@export var death_effect: PackedScene # <--- Сцена эффекта смерти
 
 var speed: float:
 	get: return data.speed if data else 150.0
@@ -84,10 +86,18 @@ func take_damage(damage_amount: int, _knockback: float = 0.0):
 	knockback_timer = 0.3
 
 func _on_died():
-	if has_node("DropScene") and get_node("DropScene").scene:
-		var drop = get_node("DropScene").scene.instantiate()
+	# Спавн эффекта смерти
+	if death_effect:
+		var fx = death_effect.instantiate()
+		fx.global_position = global_position
+		get_tree().current_scene.add_child(fx)
+		
+	# Спавн лута (если есть)
+	if drop_scene:
+		var drop = drop_scene.instantiate()
 		drop.global_position = global_position
 		get_tree().current_scene.add_child(drop)
+		
 	call_deferred("queue_free")
 
 func set_facing(dir: int):

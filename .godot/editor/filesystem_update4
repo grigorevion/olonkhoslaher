@@ -1,0 +1,13 @@
+res://ui/huds/HealthBar.tscn
+res://ui/huds/health_bar.gd
+res://components/ai/player_states/PlayerStateDash.tscn
+res://ui/huds/EnemyHealthBar.tscn
+res://ui/huds/enemy_health_bar.gd
+res://entities/enemy/MeleeEnemy.tscn
+res://ui/damage_numbers/DamageNumber.tscn
+res://ui/damage_numbers/damage_number.gd
+res://components/combat/hitbox_component.gd
+res://ui/effects/DeathExplosion.tscn
+res://ui/effects/death_explosion.gd
+res://entities/enemy/base_enemy.gd
+res://world/levels/TestLevel.tscn
