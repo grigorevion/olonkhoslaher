@@ -1,9 +1,10 @@
 [gd_scene format=4 uid="uid://hn6g0mnvuklo"]
 
+[ext_resource type="Texture2D" uid="uid://c56hiyuw0ckt4" path="res://assets/sprites/Sky2.jpg" id="1_3km53"]
+[ext_resource type="Texture2D" uid="uid://bt87he7bulf6h" path="res://assets/sprites/woods.png" id="2_pxvux"]
 [ext_resource type="Texture2D" uid="uid://b1hfuyu3qaxi1" path="res://assets/sprites/Ground.png" id="2_tt5pu"]
 [ext_resource type="Script" uid="uid://beo1kbs1vbrot" path="res://world/levels/tile_map_layer.gd" id="3_3km53"]
 [ext_resource type="PackedScene" uid="uid://c8ijvaxn8pjn8" path="res://entities/player/Player.tscn" id="3_t74am"]
-[ext_resource type="Texture2D" uid="uid://cq1v01nw2g7rr" path="res://assets/sprites/Sky.png" id="4_pxvux"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t74am"]
 texture = ExtResource("2_tt5pu")
@@ -30,25 +31,33 @@ tile_size = Vector2i(128, 128)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_t74am")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixtx3"]
-texture = ExtResource("4_pxvux")
-texture_region_size = Vector2i(128, 128)
-0:0/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_tt5pu"]
-tile_size = Vector2i(128, 128)
-sources/1 = SubResource("TileSetAtlasSource_ixtx3")
-
 [node name="Node2D" type="Node2D" unique_id=698730273]
 
-[node name="Player" parent="." unique_id=1400714358 instance=ExtResource("3_t74am")]
-position = Vector2(65, -63)
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1958954573]
+scroll_scale = Vector2(0.1, 0.1)
+repeat_size = Vector2(3503, 0)
+repeat_times = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1844555173]
+position = Vector2(859, -137)
+scale = Vector2(2.488778, 2.5442708)
+texture = ExtResource("1_3km53")
+
+[node name="Parallax2D2" type="Parallax2D" parent="." unique_id=1821620558]
+scale = Vector2(2.488778, 2.5442708)
+scroll_scale = Vector2(0.3, 0.1)
+repeat_size = Vector2(1405, 0)
+repeat_times = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D2" unique_id=224378692]
+position = Vector2(-181.61523, 165.07678)
+texture = ExtResource("2_pxvux")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=862580026]
 position = Vector2(0, -3)
-tile_map_data = PackedByteArray("AAD8/wAAAAABAAEAAAD9/wAAAAABAAEAAAD+/wAAAAABAAEAAAD//wAAAAABAAEAAAAAAAAAAAABAAEAAAABAAAAAAABAAEAAAACAAAAAAABAAEAAAADAAAAAAABAAEAAAAEAAAAAAABAAEAAAAFAAAAAAABAAEAAAAGAAAAAAABAAEAAAD8/wEAAAAAAAEAAAD9/wEAAAAAAAEAAAD+/wEAAAAAAAEAAAD//wEAAAAAAAEAAAAAAAEAAAAAAAEAAAABAAEAAAAAAAEAAAACAAEAAAAAAAEAAAADAAEAAAAAAAEAAAAEAAEAAAAAAAEAAAAFAAEAAAAAAAEAAAAGAAEAAAAAAAEAAAD8/wIAAAAAAAEAAAD9/wIAAAAAAAEAAAD+/wIAAAAAAAEAAAD//wIAAAAAAAEAAAAAAAIAAAAAAAEAAAABAAIAAAAAAAEAAAACAAIAAAAAAAEAAAADAAIAAAAAAAEAAAAEAAIAAAAAAAEAAAAFAAIAAAAAAAEAAAAGAAIAAAAAAAEAAAA=")
+tile_map_data = PackedByteArray("AAD//wMAAAABAAEAAAD+/wMAAAABAAEAAAD9/wMAAAABAAEAAAD8/wMAAAABAAEAAAD7/wMAAAABAAEAAAD6/wMAAAABAAEAAAD5/wMAAAABAAEAAAD4/wMAAAABAAEAAAD3/wMAAAABAAEAAAD2/wMAAAABAAEAAAD2/wQAAAAAAAEAAAD2/wUAAAAAAAEAAAD2/wYAAAAAAAEAAAD3/wQAAAAAAAEAAAD3/wUAAAAAAAEAAAD3/wYAAAAAAAEAAAD4/wQAAAAAAAEAAAD4/wUAAAAAAAEAAAD4/wYAAAAAAAEAAAD5/wQAAAAAAAEAAAD5/wUAAAAAAAEAAAD5/wYAAAAAAAEAAAD6/wQAAAAAAAEAAAD6/wUAAAAAAAEAAAD6/wYAAAAAAAEAAAD7/wQAAAAAAAEAAAD7/wUAAAAAAAEAAAD7/wYAAAAAAAEAAAD8/wQAAAAAAAEAAAD8/wUAAAAAAAEAAAD8/wYAAAAAAAEAAAD9/wQAAAAAAAEAAAD9/wUAAAAAAAEAAAD9/wYAAAAAAAEAAAD+/wQAAAAAAAEAAAD+/wUAAAAAAAEAAAD+/wYAAAAAAAEAAAD//wQAAAAAAAEAAAD//wUAAAAAAAEAAAD//wYAAAAAAAEAAAA=")
 tile_set = SubResource("TileSet_ver1u")
 script = ExtResource("3_3km53")
 
-[node name="TileMapLayer2" type="TileMapLayer" parent="." unique_id=1820408902]
-tile_set = SubResource("TileSet_tt5pu")
+[node name="Player" parent="." unique_id=1400714358 instance=ExtResource("3_t74am")]
+position = Vector2(-1095, 325)

@@ -1,8 +1,8 @@
 extends TileMapLayer # <--- Важно! Указываем, что скрипт наследует TileMapLayer
 
 @export var width: int = 100
-@export var height: int = 40
-@export var surface_level: int = 10
+@export var height: int = 20
+@export var surface_level: int = 3
 @export var noise_frequency: float = 0.05
 @export var surface_amplitude: float = 5.0
 
@@ -26,7 +26,7 @@ func _ready() -> void:
 	generate_world()
 
 func generate_world() -> void:
-	clear() # Очищаем слой (метод самого TileMapLayer)
+	 # Очищаем слой (метод самого TileMapLayer)
 	
 	noise = FastNoiseLite.new()
 	noise.seed = randi()
