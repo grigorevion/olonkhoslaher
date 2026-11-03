@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Sprite2D
 Parallax2D
 TileMap
@@ -8,6 +9,16 @@ Node
 HealthComponent
 Node
 Node2D
+=======
+CPUParticles2D
+Label
+Node2D
+ProgressBar
+Control
+CanvasLayer
+Node
+Sprite2D
+>>>>>>> 392f6f0a80a0623bba424580b8fcc20c8c5fea61
 CollisionShape2D
 Area2D
 HealthComponent

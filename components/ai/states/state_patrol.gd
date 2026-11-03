@@ -15,12 +15,14 @@ func enter() -> void:
 func physics_update(delta: float) -> void:
 	var enemy = state_machine.parent
 	
-	# Если игрок невидим — мы его не видим
-	if enemy.player_ref and not enemy.player_ref.is_stealthed:
-		var dist = enemy.global_position.distance_to(enemy.player_ref.global_position)
-		if dist < enemy.detection_radius:
-			state_machine.transition_to(Entity.State.ALERT)
-			return
+	# Проверяем, не невидим ли игрок
+	if enemy.player_ref:
+		var player_stealth = enemy.player_ref.get_node("StatusEffectComponent").has_effect("stealth")
+		if not player_stealth:
+			var dist = enemy.global_position.distance_to(enemy.player_ref.global_position)
+			if dist < enemy.detection_radius:
+				state_machine.transition_to(Entity.State.ALERT)
+				return
 	
 	if wait_timer > 0.0:
 		wait_timer -= delta

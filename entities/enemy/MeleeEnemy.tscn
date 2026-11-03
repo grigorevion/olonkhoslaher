@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://ccse7hkd5uoyi" path="res://entities/enemy/base_enemy.gd" id="1_e7xor"]
 [ext_resource type="Resource" uid="uid://b02khksfg6ksv" path="res://entities/enemy/data/basic_abasy.tres" id="2_maky4"]
 [ext_resource type="Texture2D" uid="uid://cu7dvl7b0nbvo" path="res://assets/sprites/icon.svg" id="2_ul1q5"]
+[ext_resource type="PackedScene" uid="uid://j2wu8xg544mu" path="res://ui/effects/DeathExplosion.tscn" id="3_c17pr"]
 [ext_resource type="Script" uid="uid://b7qv5ien8sl4j" path="res://components/health_component.gd" id="3_cn5l5"]
 [ext_resource type="PackedScene" uid="uid://cf66w8m7ckc4u" path="res://components/ai/states/StatePatrol.tscn" id="4_10nk3"]
 [ext_resource type="Script" uid="uid://jcnmgajixv8r" path="res://components/ai/base/state_machine.gd" id="4_maky4"]
@@ -12,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://pc7dpd3mcjuy" path="res://components/ai/states/StateAttack.tscn" id="10_2nhrp"]
 [ext_resource type="PackedScene" uid="uid://d1tm8ysshdc4m" path="res://components/combat/MeleeWeapon.tscn" id="11_2nhrp"]
 [ext_resource type="PackedScene" uid="uid://bva1guhi0wiv2" path="res://components/ai/states/StateReposition.tscn" id="11_udfuu"]
+[ext_resource type="Script" uid="uid://4ayn5lkdipxp" path="res://components/status_effects/status_effect_component.gd" id="13_2j5hy"]
+[ext_resource type="PackedScene" uid="uid://b86pyirs55mso" path="res://ui/huds/EnemyHealthBar.tscn" id="14_f2uiq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oatem"]
 size = Vector2(114, 110)
@@ -21,6 +24,7 @@ disable_mode = 1
 collision_layer = 4
 script = ExtResource("1_e7xor")
 data = ExtResource("2_maky4")
+death_effect = ExtResource("3_c17pr")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1184465285]
 position = Vector2(0, -5.9604645e-08)
@@ -53,3 +57,8 @@ script = ExtResource("4_maky4")
 [node name="MeleeWeapon" parent="." unique_id=379556829 instance=ExtResource("11_2nhrp")]
 position = Vector2(-137, -12)
 scale = Vector2(1, 1.8)
+
+[node name="StatusEffectComponent" type="Node" parent="." unique_id=262606780]
+script = ExtResource("13_2j5hy")
+
+[node name="EnemyHealthBar" parent="." unique_id=674015884 instance=ExtResource("14_f2uiq")]

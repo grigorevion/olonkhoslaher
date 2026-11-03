@@ -1,6 +1,9 @@
 extends Entity
 
+# --- ДАННЫЕ ---
 @export var data: EnemyData
+@export var drop_scene: PackedScene
+@export var death_effect: PackedScene # <--- Сцена эффекта смерти
 
 var speed: float:
 	get: return data.speed if data else 150.0
@@ -55,7 +58,7 @@ func _ready():
 		state_machine.add_state(State.ALERT, $StateMachine/StateAlert)
 		state_machine.add_state(State.CHASE, $StateMachine/StateChase)
 		state_machine.add_state(State.RETURN, $StateMachine/StateReturn)
-		state_machine.add_state(State.REPOSITION, $StateMachine/StateReposition) # <--- НОВОЕ
+		state_machine.add_state(State.REPOSITION, $StateMachine/StateReposition)
 		state_machine.add_state(State.ATTACK, $StateMachine/StateAttack)
 		state_machine.transition_to(State.PATROL)
 
@@ -83,6 +86,18 @@ func take_damage(damage_amount: int, _knockback: float = 0.0):
 	knockback_timer = 0.3
 
 func _on_died():
+	# Спавн эффекта смерти
+	if death_effect:
+		var fx = death_effect.instantiate()
+		fx.global_position = global_position
+		get_tree().current_scene.add_child(fx)
+		
+	# Спавн лута (если есть)
+	if drop_scene:
+		var drop = drop_scene.instantiate()
+		drop.global_position = global_position
+		get_tree().current_scene.add_child(drop)
+		
 	call_deferred("queue_free")
 
 func set_facing(dir: int):
@@ -101,5 +116,5 @@ func play_animation(anim_name: String):
 			"alert": $Sprite2D.modulate = Color(1, 1, 0)
 			"chase": $Sprite2D.modulate = Color(1, 0.3, 0.3)
 			"return": $Sprite2D.modulate = Color(0.5, 0.5, 1)
-			"reposition": $Sprite2D.modulate = Color(1, 0.6, 0.2) # Оранжевый
+			"reposition": $Sprite2D.modulate = Color(1, 0.6, 0.2)
 			"attack": $Sprite2D.modulate = Color(0.8, 0.1, 0.1)

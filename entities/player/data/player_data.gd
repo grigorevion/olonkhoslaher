@@ -2,7 +2,7 @@ extends Resource
 class_name PlayerData
 
 @export_group("Stats")
-@export var max_hp: int = 3
+@export var max_hp: int = 100
 
 @export_group("Movement")
 @export var speed: float = 600.0
@@ -18,3 +18,5 @@ class_name PlayerData
 @export_group("Combat")
 @export var attack_duration: float = 0.3
 @export var attack_knockback: float = 400.0
+@export var attack_damage: int = 25          # <--- УРОН ИГРОКА
+@export var damage_variance: float = 0.2     # <--- РАЗБРОС (20%)

@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://d2wdwja6cp10y" path="res://components/ai/player_states/PlayerStateDash.tscn" id="7_2rv2u"]
 [ext_resource type="PackedScene" uid="uid://brtihirxdpake" path="res://components/ai/player_states/PlayerStateJump.tscn" id="8_2rv2u"]
 [ext_resource type="PackedScene" uid="uid://bxoctc33o7f5t" path="res://components/ai/player_states/PlayerStateRun.tscn" id="9_mq27t"]
+[ext_resource type="Script" uid="uid://4ayn5lkdipxp" path="res://components/status_effects/status_effect_component.gd" id="12_2rv2u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bbxxh"]
 size = Vector2(128, 128)
@@ -54,3 +55,6 @@ script = ExtResource("5_q57vx")
 [node name="PlayerStateJump" parent="StateMachine" unique_id=895720019 instance=ExtResource("8_2rv2u")]
 
 [node name="PlayerStateRun" parent="StateMachine" unique_id=854600544 instance=ExtResource("9_mq27t")]
+
+[node name="StatusEffectComponent" type="Node" parent="." unique_id=288759225]
+script = ExtResource("12_2rv2u")

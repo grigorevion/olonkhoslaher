@@ -13,8 +13,9 @@ func enter() -> void:
 func physics_update(delta: float) -> void:
 	var enemy = state_machine.parent
 	
-	# Если игрок стал невидимым — теряем его (в удивление)
-	if enemy.player_ref.is_stealthed:
+	# Если игрок стал невидимым — теряем его
+	var player_stealth = enemy.player_ref.get_node("StatusEffectComponent").has_effect("stealth")
+	if player_stealth:
 		state_machine.transition_to(Entity.State.ALERT)
 		return
 		

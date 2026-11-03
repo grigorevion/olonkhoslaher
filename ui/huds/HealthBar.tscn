@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://cobq5wweephxy"]
+
+[ext_resource type="Script" uid="uid://dcpe0atfdwr6o" path="res://ui/huds/health_bar.gd" id="1_xqxkl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8dm5k"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c5w6k"]
+bg_color = Color(0.18039216, 0.8, 0.44313726, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_84j6x"]
+font_size = 18
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="HealthBar" type="CanvasLayer" unique_id=887760113]
+script = ExtResource("1_xqxkl")
+
+[node name="HUD" type="Control" parent="." unique_id=25681946]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DamageBar" type="ProgressBar" parent="HUD" unique_id=190307944]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 310.0
+offset_bottom = 40.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_8dm5k")
+max_value = 3.0
+value = 3.0
+show_percentage = false
+
+[node name="HealthBar" type="ProgressBar" parent="HUD" unique_id=1038845572]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 310.0
+offset_bottom = 40.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_c5w6k")
+max_value = 3.0
+value = 3.0
+show_percentage = false
+
+[node name="HealthLabel" type="Label" parent="HUD" unique_id=19704243]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 310.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 10
+label_settings = SubResource("LabelSettings_84j6x")
+horizontal_alignment = 1
+vertical_alignment = 1
