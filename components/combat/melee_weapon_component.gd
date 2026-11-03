@@ -5,9 +5,17 @@ class_name MeleeWeaponComponent
 
 func _ready():
 	if hitbox:
-		# Автоматически передаем владельца (Игрока или Врага) в хитбокс
 		hitbox.owner_entity = get_parent()
 
 func attack():
 	if hitbox:
-		hitbox.activate(0.1)
+		var owner_entity = get_parent()
+		var damage = 10
+		var variance = 0.0
+		
+		# Если у владельца (игрока или врага) есть дата-файл, берем урон оттуда
+		if owner_entity.data:
+			damage = owner_entity.data.attack_damage
+			variance = owner_entity.data.damage_variance
+			
+		hitbox.activate(0.1, damage, variance)

@@ -33,7 +33,6 @@ var facing_direction = 1
 var coyote_timer = 0.0
 var jump_buffer_timer = 0.0
 var dash_cooldown_timer = 0.0
-var is_stealthed: bool = false # <--- Флаг невидимости
 var weapon_base_pos_x = 0.0
 var weapon_base_scale_x = 1.0
 
@@ -58,13 +57,13 @@ func _ready():
 		state_machine.add_state(State.RUN, $StateMachine/PlayerStateRun)
 		state_machine.add_state(State.JUMP, $StateMachine/PlayerStateJump)
 		state_machine.add_state(State.ATTACK, $StateMachine/PlayerStateAttack)
-		state_machine.add_state(State.DASH, $StateMachine/PlayerStateDash) # <--- Новое состояние
+		state_machine.add_state(State.DASH, $StateMachine/PlayerStateDash)
 		state_machine.transition_to(State.IDLE)
 
 func _physics_process(delta: float) -> void:
 	input_direction = Input.get_axis("move_left", "move_right")
 	input_attack_pressed = Input.is_action_just_pressed("attack")
-	input_dash_pressed = Input.is_action_just_pressed("dash") # <--- Читаем кнопку рывка
+	input_dash_pressed = Input.is_action_just_pressed("dash")
 	
 	if dash_cooldown_timer > 0.0:
 		dash_cooldown_timer -= delta
@@ -98,7 +97,7 @@ func play_animation(anim_name: String):
 	if has_node("Sprite2D"):
 		match anim_name:
 			"attack": $Sprite2D.modulate = Color(1, 0.8, 0.8)
-			"dash": $Sprite2D.modulate = Color(0.5, 0.8, 1.0, 0.5) # Полупрозрачный синий
+			"dash": $Sprite2D.modulate = Color(0.5, 0.8, 1.0, 0.5) 
 			_: $Sprite2D.modulate = Color(1, 1, 1)
 
 func take_damage(amount: int, _knockback: float = 0.0):

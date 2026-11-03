@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://pc7dpd3mcjuy" path="res://components/ai/states/StateAttack.tscn" id="10_2nhrp"]
 [ext_resource type="PackedScene" uid="uid://d1tm8ysshdc4m" path="res://components/combat/MeleeWeapon.tscn" id="11_2nhrp"]
 [ext_resource type="PackedScene" uid="uid://bva1guhi0wiv2" path="res://components/ai/states/StateReposition.tscn" id="11_udfuu"]
+[ext_resource type="Script" uid="uid://4ayn5lkdipxp" path="res://components/status_effects/status_effect_component.gd" id="13_2j5hy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oatem"]
 size = Vector2(114, 110)
@@ -53,3 +54,6 @@ script = ExtResource("4_maky4")
 [node name="MeleeWeapon" parent="." unique_id=379556829 instance=ExtResource("11_2nhrp")]
 position = Vector2(-137, -12)
 scale = Vector2(1, 1.8)
+
+[node name="StatusEffectComponent" type="Node" parent="." unique_id=262606780]
+script = ExtResource("13_2j5hy")
