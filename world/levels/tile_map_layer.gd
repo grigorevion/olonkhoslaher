@@ -1,4 +1,4 @@
-extends TileMapLayer # <--- Важно! Указываем, что скрипт наследует TileMapLayer
+extends TileMapLayer
 
 @export var width: int = 100
 @export var height: int = 20
@@ -21,12 +21,14 @@ extends TileMapLayer # <--- Важно! Указываем, что скрипт 
 ]
 
 var noise: FastNoiseLite
+var surface_heights: Array[int] = [] # <--- Массив, где мы запоминаем высоту
 
 func _ready() -> void:
 	generate_world()
 
 func generate_world() -> void:
-	 # Очищаем слой (метод самого TileMapLayer)
+	clear() # Очищаем старые тайлы при перегенерации
+	surface_heights.clear() # Очищаем старые данные
 	
 	noise = FastNoiseLite.new()
 	noise.seed = randi()
@@ -39,10 +41,11 @@ func generate_world() -> void:
 			0, height - 1
 		)
 		
-		# Ставим тайл напрямую, так как скрипт уже на TileMapLayer
+		# ЗАПОМИНАЕМ ВЫСОТУ ДЛЯ КАЖДОГО X
+		surface_heights.append(surface_height)
+		
 		var random_grass = grass.pick_random()
 		set_cell(Vector2i(x, surface_height), 0, random_grass) 
-		
 		
 		for y in range(surface_height + 1, height):
 			var random_dirt = dirt.pick_random()

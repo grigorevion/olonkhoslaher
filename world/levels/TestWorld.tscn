@@ -1,7 +1,9 @@
 [gd_scene format=4 uid="uid://hn6g0mnvuklo"]
 
 [ext_resource type="Texture2D" uid="uid://c56hiyuw0ckt4" path="res://assets/sprites/Sky2.jpg" id="1_3km53"]
+[ext_resource type="Script" uid="uid://lbspi1lw5dbw" path="res://world/levels/test_world.gd" id="1_ixtx3"]
 [ext_resource type="Texture2D" uid="uid://bt87he7bulf6h" path="res://assets/sprites/woods.png" id="2_pxvux"]
+[ext_resource type="PackedScene" uid="uid://r03mmtoe1o1m" path="res://entities/enemy/MeleeEnemy.tscn" id="2_rmd18"]
 [ext_resource type="Texture2D" uid="uid://b1hfuyu3qaxi1" path="res://assets/sprites/Ground.png" id="2_tt5pu"]
 [ext_resource type="Script" uid="uid://beo1kbs1vbrot" path="res://world/levels/tile_map_layer.gd" id="3_3km53"]
 [ext_resource type="PackedScene" uid="uid://c8ijvaxn8pjn8" path="res://entities/player/Player.tscn" id="3_t74am"]
@@ -32,6 +34,8 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_t74am")
 
 [node name="Node2D" type="Node2D" unique_id=698730273]
+script = ExtResource("1_ixtx3")
+enemy_scene = ExtResource("2_rmd18")
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=1958954573]
 scroll_scale = Vector2(0.1, 0.1)
