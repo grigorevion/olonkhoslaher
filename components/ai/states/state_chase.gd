@@ -28,31 +28,35 @@ func physics_update(delta: float) -> void:
 	var target_dir = 1 if target_x > enemy.global_position.x else -1
 	
 	var dist = enemy.global_position.distance_to(enemy.player_ref.global_position)
-	var y_diff = enemy.global_position.y - target_y
+	var y_diff = enemy.global_position.y - target_y 
 	
-	# --- НОВАЯ ЛОГИКА: ТОЛЬКО У СТЕНЫ ---
-	if enemy.is_on_wall() and enemy.is_on_floor() and y_diff > 60.0:
-		# Если кулдаун прошел — делаем воздушный дэш
-		if enemy.air_dash_cooldown_timer <= 0.0:
+	var is_ledge = false
+	if enemy.has_node("LedgeCheck"):
+		is_ledge = not enemy.get_node("LedgeCheck").is_colliding()
+	
+	if enemy.air_dash_cooldown_timer <= 0.0:
+		if enemy.is_on_wall() and enemy.is_on_floor() and y_diff > 60.0:
 			state_machine.transition_to(Entity.State.AIR_DASH_ATTACK)
 			return
-		else:
-			# Кулдаун активен — делаем обычный прыжок и стоим
-			if enemy.jump_cooldown_timer <= 0.0:
-				enemy.velocity.y = enemy.jump_velocity
-				enemy.jump_cooldown_timer = 1.0
-			enemy.velocity.x = 0
-			return
-	# ----------------------------------
+		elif enemy.is_on_floor() and y_diff < -40.0:
+			if is_ledge or enemy.is_on_wall():
+				state_machine.transition_to(Entity.State.GROUND_SLAM)
+				return
 	
-	if dist < enemy.attack_range:
+	if dist < enemy.attack_range and abs(y_diff) < 60.0:
 		if dist < enemy.attack_min_range and enemy.reposition_cooldown_timer <= 0.0:
 			state_machine.transition_to(Entity.State.REPOSITION)
 			return
 		if enemy.attack_cooldown_timer > 0.0:
 			enemy.velocity.x = 0
 			return
-		state_machine.transition_to(Entity.State.ATTACK)
+			
+		# --- РАНДОМ: 1 из 3 = Dash Combo, 2 из 3 = Обычная атака ---
+		if randf() < 0.33:
+			state_machine.transition_to(Entity.State.DASH_COMBO)
+		else:
+			state_machine.transition_to(Entity.State.ATTACK)
+		# ------------------------------------------------------------
 		return
 	
 	if dist > enemy.detection_radius * 1.5:

@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b1hfuyu3qaxi1" path="res://assets/sprites/Ground.png" id="2_tt5pu"]
 [ext_resource type="Script" uid="uid://beo1kbs1vbrot" path="res://world/levels/tile_map_layer.gd" id="3_3km53"]
 [ext_resource type="PackedScene" uid="uid://c8ijvaxn8pjn8" path="res://entities/player/Player.tscn" id="3_t74am"]
+[ext_resource type="PackedScene" uid="uid://cobq5wweephxy" path="res://ui/huds/HealthBar.tscn" id="8_ep0fn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t74am"]
 texture = ExtResource("2_tt5pu")
@@ -65,3 +66,5 @@ script = ExtResource("3_3km53")
 
 [node name="Player" parent="." unique_id=1400714358 instance=ExtResource("3_t74am")]
 position = Vector2(-1095, 325)
+
+[node name="HealthBar" parent="." unique_id=887760113 instance=ExtResource("8_ep0fn")]

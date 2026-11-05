@@ -35,6 +35,7 @@ var jump_buffer_timer = 0.0
 var dash_cooldown_timer = 0.0
 var weapon_base_pos_x = 0.0
 var weapon_base_scale_x = 1.0
+var was_stunned = false # <--- НОВАЯ ПЕРЕМЕННАЯ
 
 @onready var health_component = $HealthComponent
 @onready var camera = $Camera2D
@@ -61,9 +62,23 @@ func _ready():
 		state_machine.transition_to(State.IDLE)
 
 func _physics_process(delta: float) -> void:
-	input_direction = Input.get_axis("move_left", "move_right")
-	input_attack_pressed = Input.is_action_just_pressed("attack")
-	input_dash_pressed = Input.is_action_just_pressed("dash")
+	# --- ПРОВЕРКА НА СТАН ---
+	var is_stunned = $StatusEffectComponent.has_effect("stunned")
+	if is_stunned:
+		if not was_stunned:
+			was_stunned = true
+			$Sprite2D.modulate = Color(0.5, 0.5, 0.5) # Серый цвет
+		input_direction = 0
+		input_attack_pressed = false
+		input_dash_pressed = false
+	else:
+		if was_stunned:
+			was_stunned = false
+			$Sprite2D.modulate = Color(1, 1, 1) # Возвращаем цвет
+		input_direction = Input.get_axis("move_left", "move_right")
+		input_attack_pressed = Input.is_action_just_pressed("attack")
+		input_dash_pressed = Input.is_action_just_pressed("dash")
+	# --------------------------------------
 	
 	if dash_cooldown_timer > 0.0:
 		dash_cooldown_timer -= delta
@@ -87,7 +102,6 @@ func set_facing(dir: int):
 	facing_direction = dir
 	if has_node("Sprite2D"):
 		$Sprite2D.flip_h = dir < 0
-		
 	if has_node("MeleeWeapon"):
 		var weapon = $MeleeWeapon
 		weapon.position.x = weapon_base_pos_x * dir
@@ -98,7 +112,7 @@ func play_animation(anim_name: String):
 		match anim_name:
 			"attack": $Sprite2D.modulate = Color(1, 0.8, 0.8)
 			"dash": $Sprite2D.modulate = Color(0.5, 0.8, 1.0, 0.5) 
-			_: $Sprite2D.modulate = Color(1, 1, 1)
+			_: if not was_stunned: $Sprite2D.modulate = Color(1, 1, 1)
 
 func take_damage(amount: int, _knockback: float = 0.0):
 	health_component.take_damage(amount)

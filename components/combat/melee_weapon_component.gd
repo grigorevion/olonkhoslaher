@@ -18,7 +18,8 @@ func _ready():
 		if attack_animation:
 			anim_sprite.sprite_frames = attack_animation
 
-func attack():
+# Добавили параметр damage_mult (множитель урона)
+func attack(damage_mult: float = 1.0):
 	if hitbox:
 		var owner_entity = get_parent()
 		var damage = 10
@@ -28,21 +29,21 @@ func attack():
 			damage = owner_entity.data.attack_damage
 			variance = owner_entity.data.damage_variance
 			
+		# Применяем множитель
+		damage = int(damage * damage_mult)
+			
 		var has_custom_anim = (attack_animation != null and show_animation)
-		
 		hitbox.activate(0.1, damage, variance, not has_custom_anim)
 		
 		if has_custom_anim and anim_sprite:
 			anim_sprite.visible = true
 			anim_sprite.play("default")
 			
-			# Ждем завершения, но проверяем, не отменили ли анимацию
 			var current_anim = anim_sprite
 			await current_anim.animation_finished
 			if is_instance_valid(current_anim) and current_anim.visible:
 				current_anim.visible = false
 
-# НОВАЯ ФУНКЦИЯ: Принудительно прячем анимацию
 func cancel_attack():
 	if anim_sprite:
 		anim_sprite.stop()

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b21bm1jpoed6d"]
+
+[ext_resource type="Script" uid="uid://bvs5b4kjut7mp" path="res://components/ai/states/state_dash_combo.gd" id="1_k4cbc"]
+
+[node name="StateDashCombo" type="Node" unique_id=1533109120]
+script = ExtResource("1_k4cbc")

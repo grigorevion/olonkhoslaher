@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cgb4bw33ytdg7"]
+
+[ext_resource type="Script" uid="uid://xr72qohxkbnq" path="res://components/ai/states/state_ground_slam.gd" id="1_obxw5"]
+
+[node name="StateGroundSlam" type="Node" unique_id=1882613282]
+script = ExtResource("1_obxw5")

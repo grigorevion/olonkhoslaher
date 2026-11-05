@@ -6,7 +6,7 @@ func enter() -> void:
 	var player = state_machine.parent
 	dash_timer = player.dash_duration
 	
-	# Вместо флагов используем статусы!
+	# Включаем неуязвимость и невидимость
 	var status_manager = player.get_node("StatusEffectComponent")
 	status_manager.add_effect("invulnerable", player.dash_duration)
 	status_manager.add_effect("stealth", player.dash_duration)
@@ -19,11 +19,29 @@ func enter() -> void:
 	player.set_facing(int(dir))
 	
 	player.velocity.x = dir * player.dash_speed
-	player.velocity.y = 0 
+	
+	# Если мы на земле, обнуляем Y. Если в воздухе — оставляем как есть (чтобы не падать камнем).
+	if player.is_on_floor():
+		player.velocity.y = 0 
 
 func physics_update(delta: float) -> void:
 	var player = state_machine.parent
 	dash_timer -= delta
+	
+	# --- ГЛАВНЫЙ ФИКС: ПРЫЖОК ИЗ РЫВКА ---
+	# Если мы на земле и нажали прыжок — прыгаем, сохраняя скорость рывка!
+	if player.is_on_floor() and player.jump_buffer_timer > 0.0 and player.coyote_timer > 0.0:
+		player.velocity.y = player.jump_velocity
+		player.jump_buffer_timer = 0.0
+		player.coyote_timer = 0.0
+		
+		# Ставим кулдаун, чтобы нельзя было спамить
+		player.dash_cooldown_timer = player.dash_cooldown
+		
+		# Переходим в прыжок (горизонтальная скорость velocity.x сохранится)
+		state_machine.transition_to(Entity.State.JUMP)
+		return
+	# -------------------------------------
 	
 	player.velocity.x = move_toward(player.velocity.x, 0, player.speed * 4 * delta)
 	

@@ -25,19 +25,21 @@ var reposition_decel: float:
 var jump_velocity: float:
 	get: return data.jump_velocity if data else -1500.0
 var air_dash_cooldown: float:
-	get: return data.air_dash_cooldown if data else 3.0 # <--- ГЕТТЕР
+	get: return data.air_dash_cooldown if data else 3.0
 
 var gravity = 4000.0
 var attack_cooldown_timer = 0.0
 var jump_cooldown_timer = 0.0
 var reposition_cooldown_timer = 0.0
-var air_dash_cooldown_timer = 0.0 # <--- НОВЫЙ ТАЙМЕР
+var air_dash_cooldown_timer = 0.0
 var player_ref = null
 var start_position = Vector2.ZERO
 var weapon_base_pos_x = 0.0
 var weapon_base_scale_x = 1.0
 
 func _ready():
+	add_to_group("enemy") # <--- ГЛАВНЫЙ ФИКС
+	
 	if data:
 		if has_node("HealthComponent"):
 			$HealthComponent.max_hp = data.max_hp
@@ -67,6 +69,8 @@ func _ready():
 		state_machine.add_state(State.REPOSITION, $StateMachine/StateReposition)
 		state_machine.add_state(State.ATTACK, $StateMachine/StateAttack)
 		state_machine.add_state(State.AIR_DASH_ATTACK, $StateMachine/StateAirDashAttack)
+		state_machine.add_state(State.GROUND_SLAM, $StateMachine/StateGroundSlam)
+		state_machine.add_state(State.DASH_COMBO, $StateMachine/StateDashCombo) 
 		state_machine.transition_to(State.PATROL)
 
 func _physics_process(delta: float) -> void:
@@ -78,7 +82,7 @@ func _physics_process(delta: float) -> void:
 		jump_cooldown_timer -= delta
 	if reposition_cooldown_timer > 0.0:
 		reposition_cooldown_timer -= delta
-	if air_dash_cooldown_timer > 0.0: # <--- ТИКАЕМ
+	if air_dash_cooldown_timer > 0.0: 
 		air_dash_cooldown_timer -= delta
 	if knockback_timer > 0.0:
 		knockback_timer -= delta

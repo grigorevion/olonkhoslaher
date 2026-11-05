@@ -17,7 +17,6 @@ func _ready():
 	if has_node("Sprite2D"):
 		$Sprite2D.visible = false
 
-# Добавили параметр show_default_visual
 func activate(duration: float, base_damage: int, variance: float = 0.0, show_default_visual: bool = true):
 	current_damage = base_damage
 	current_variance = variance
@@ -26,7 +25,6 @@ func activate(duration: float, base_damage: int, variance: float = 0.0, show_def
 		var area = $Area2D
 		area.monitoring = true
 		
-		# Показываем красный квадрат ТОЛЬКО если нам разрешили
 		if has_node("Sprite2D") and show_default_visual:
 			$Sprite2D.visible = true
 			
@@ -39,21 +37,30 @@ func activate(duration: float, base_damage: int, variance: float = 0.0, show_def
 func _on_body_entered(body: Node2D):
 	if body == owner_entity:
 		return
+	if not body.has_method("take_damage"):
+		return
 		
-	if body.has_method("take_damage"):
-		var min_dmg = current_damage * (1.0 - current_variance)
-		var max_dmg = current_damage * (1.0 + current_variance)
-		var final_damage = int(randf_range(min_dmg, max_dmg))
-		
-		var is_crit = randf() < 0.15
-		if is_crit:
-			final_damage = int(final_damage * 2.0) 
+	if owner_entity and owner_entity.is_in_group("player"):
+		if body.is_in_group("player"):
+			return
 			
-		body.take_damage(final_damage)
-		hit_target.emit(body)
+	if owner_entity and owner_entity.is_in_group("enemy"):
+		if body.is_in_group("enemy"):
+			return
+
+	var min_dmg = current_damage * (1.0 - current_variance)
+	var max_dmg = current_damage * (1.0 + current_variance)
+	var final_damage = int(randf_range(min_dmg, max_dmg))
+	
+	var is_crit = randf() < 0.15
+	if is_crit:
+		final_damage = int(final_damage * 2.0) 
 		
-		if damage_number_scene:
-			var num = damage_number_scene.instantiate()
-			get_tree().current_scene.add_child(num)
-			num.global_position = body.global_position + Vector2(0, -40)
-			num.setup(final_damage, is_crit)
+	body.take_damage(final_damage)
+	hit_target.emit(body)
+	
+	if damage_number_scene:
+		var num = damage_number_scene.instantiate()
+		get_tree().current_scene.add_child(num)
+		num.global_position = body.global_position + Vector2(0, -40)
+		num.setup(final_damage, is_crit)
