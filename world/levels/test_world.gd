@@ -40,7 +40,7 @@ func spawn_enemies() -> void:
 			var spawn_pos = tilemap.map_to_local(Vector2i(x, y_index))
 			var global_spawn_pos = tilemap.to_global(spawn_pos)
 			
-			global_spawn_pos.y -= 30.0 
+			global_spawn_pos.y -= 80.0 
 			
 			var enemy = enemy_scene.instantiate()
 			enemy.global_position = global_spawn_pos

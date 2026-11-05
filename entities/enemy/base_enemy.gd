@@ -1,9 +1,8 @@
 extends Entity
 
-# --- ДАННЫЕ ---
 @export var data: EnemyData
 @export var drop_scene: PackedScene
-@export var death_effect: PackedScene # <--- Сцена эффекта смерти
+@export var death_effect: PackedScene
 
 var speed: float:
 	get: return data.speed if data else 150.0
@@ -23,9 +22,16 @@ var reposition_speed: float:
 	get: return data.reposition_speed if data else 400.0
 var reposition_decel: float:
 	get: return data.reposition_decel if data else 2000.0
+var jump_velocity: float:
+	get: return data.jump_velocity if data else -1500.0
+var air_dash_cooldown: float:
+	get: return data.air_dash_cooldown if data else 3.0 # <--- ГЕТТЕР
 
 var gravity = 4000.0
 var attack_cooldown_timer = 0.0
+var jump_cooldown_timer = 0.0
+var reposition_cooldown_timer = 0.0
+var air_dash_cooldown_timer = 0.0 # <--- НОВЫЙ ТАЙМЕР
 var player_ref = null
 var start_position = Vector2.ZERO
 var weapon_base_pos_x = 0.0
@@ -60,6 +66,7 @@ func _ready():
 		state_machine.add_state(State.RETURN, $StateMachine/StateReturn)
 		state_machine.add_state(State.REPOSITION, $StateMachine/StateReposition)
 		state_machine.add_state(State.ATTACK, $StateMachine/StateAttack)
+		state_machine.add_state(State.AIR_DASH_ATTACK, $StateMachine/StateAirDashAttack)
 		state_machine.transition_to(State.PATROL)
 
 func _physics_process(delta: float) -> void:
@@ -67,6 +74,12 @@ func _physics_process(delta: float) -> void:
 		velocity.y += gravity * delta
 	if attack_cooldown_timer > 0.0:
 		attack_cooldown_timer -= delta
+	if jump_cooldown_timer > 0.0:
+		jump_cooldown_timer -= delta
+	if reposition_cooldown_timer > 0.0:
+		reposition_cooldown_timer -= delta
+	if air_dash_cooldown_timer > 0.0: # <--- ТИКАЕМ
+		air_dash_cooldown_timer -= delta
 	if knockback_timer > 0.0:
 		knockback_timer -= delta
 		velocity.x = move_toward(velocity.x, 0, 3000 * delta)
@@ -86,17 +99,15 @@ func take_damage(damage_amount: int, _knockback: float = 0.0):
 	knockback_timer = 0.3
 
 func _on_died():
-	# Спавн эффекта смерти
 	if death_effect:
 		var fx = death_effect.instantiate()
 		fx.global_position = global_position
-		get_tree().current_scene.add_child(fx)
+		get_tree().current_scene.call_deferred("add_child", fx)
 		
-	# Спавн лута (если есть)
 	if drop_scene:
 		var drop = drop_scene.instantiate()
 		drop.global_position = global_position
-		get_tree().current_scene.add_child(drop)
+		get_tree().current_scene.call_deferred("add_child", drop)
 		
 	call_deferred("queue_free")
 

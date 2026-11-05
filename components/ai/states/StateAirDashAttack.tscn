@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://btg80voj166na"]
+
+[ext_resource type="Script" uid="uid://gt2opgm8ly63" path="res://components/ai/states/state_air_dash_attack.gd" id="1_f44in"]
+
+[node name="StateAirDashAttack" type="Node" unique_id=695295555]
+script = ExtResource("1_f44in")

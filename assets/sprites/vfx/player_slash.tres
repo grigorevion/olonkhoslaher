@@ -1,0 +1,30 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://ddqltcqox74mw"]
+
+[ext_resource type="Texture2D" uid="uid://2qrmhtirumhh" path="res://assets/sprites/vfx/muzzle_04.png" id="1_wjhlt"]
+[ext_resource type="Texture2D" uid="uid://bp116npfrg1gh" path="res://assets/sprites/vfx/muzzle_01.png" id="2_ktjw0"]
+[ext_resource type="Texture2D" uid="uid://fytjrni3sktk" path="res://assets/sprites/vfx/muzzle_03.png" id="3_mssg0"]
+[ext_resource type="Texture2D" uid="uid://c1wktdiqo3wxo" path="res://assets/sprites/vfx/muzzle_02.png" id="4_gpdiu"]
+[ext_resource type="Texture2D" uid="uid://dcdpnshvkq6oh" path="res://assets/sprites/vfx/muzzle_05.png" id="5_6lly7"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_wjhlt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ktjw0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_mssg0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gpdiu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_6lly7")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 20.0
+}]

@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d1tm8ysshdc4m" path="res://components/combat/MeleeWeapon.tscn" id="4_eaotn"]
 [ext_resource type="Script" uid="uid://jcnmgajixv8r" path="res://components/ai/base/state_machine.gd" id="5_q57vx"]
 [ext_resource type="PackedScene" uid="uid://cjs6ruqyepe68" path="res://components/ai/player_states/PlayerStateAttack.tscn" id="6_ak4un"]
+[ext_resource type="SpriteFrames" uid="uid://ddqltcqox74mw" path="res://assets/sprites/vfx/player_slash.tres" id="6_mq27t"]
 [ext_resource type="PackedScene" uid="uid://cn88mti6ppc5k" path="res://components/ai/player_states/PlayerStateIdle.tscn" id="7_1ms0h"]
 [ext_resource type="PackedScene" uid="uid://d2wdwja6cp10y" path="res://components/ai/player_states/PlayerStateDash.tscn" id="7_2rv2u"]
 [ext_resource type="PackedScene" uid="uid://brtihirxdpake" path="res://components/ai/player_states/PlayerStateJump.tscn" id="8_2rv2u"]
@@ -42,6 +43,8 @@ metadata/_custom_type_script = "uid://b7qv5ien8sl4j"
 [node name="MeleeWeapon" parent="." unique_id=631570785 instance=ExtResource("4_eaotn")]
 position = Vector2(170, 0)
 scale = Vector2(3, 0.6)
+attack_animation = ExtResource("6_mq27t")
+show_animation = true
 
 [node name="StateMachine" type="Node" parent="." unique_id=511885056]
 script = ExtResource("5_q57vx")

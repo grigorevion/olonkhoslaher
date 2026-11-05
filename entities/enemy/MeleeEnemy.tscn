@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://d1tm8ysshdc4m" path="res://components/combat/MeleeWeapon.tscn" id="11_2nhrp"]
 [ext_resource type="PackedScene" uid="uid://bva1guhi0wiv2" path="res://components/ai/states/StateReposition.tscn" id="11_udfuu"]
 [ext_resource type="Script" uid="uid://4ayn5lkdipxp" path="res://components/status_effects/status_effect_component.gd" id="13_2j5hy"]
+[ext_resource type="PackedScene" uid="uid://btg80voj166na" path="res://components/ai/states/StateAirDashAttack.tscn" id="13_duptg"]
 [ext_resource type="PackedScene" uid="uid://b86pyirs55mso" path="res://ui/huds/EnemyHealthBar.tscn" id="14_f2uiq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oatem"]
@@ -54,6 +55,8 @@ script = ExtResource("4_maky4")
 
 [node name="StateReposition" parent="StateMachine" unique_id=93846654 instance=ExtResource("11_udfuu")]
 
+[node name="StateAirDashAttack" parent="StateMachine" unique_id=695295555 instance=ExtResource("13_duptg")]
+
 [node name="MeleeWeapon" parent="." unique_id=379556829 instance=ExtResource("11_2nhrp")]
 position = Vector2(-137, -12)
 scale = Vector2(1, 1.8)
@@ -62,3 +65,6 @@ scale = Vector2(1, 1.8)
 script = ExtResource("13_2j5hy")
 
 [node name="EnemyHealthBar" parent="." unique_id=674015884 instance=ExtResource("14_f2uiq")]
+
+[node name="WallCheck" type="RayCast2D" parent="." unique_id=721116501]
+target_position = Vector2(0, -40)

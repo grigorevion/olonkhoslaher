@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_8sypu")
+jump_velocity = -1100.0
 attack_range = 180.0
 attack_min_range = 120.0
 reposition_speed = 500.0

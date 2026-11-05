@@ -15,8 +15,7 @@ func enter() -> void:
 func physics_update(delta: float) -> void:
 	var enemy = state_machine.parent
 	
-	# Проверяем, не невидим ли игрок
-	if enemy.player_ref:
+	if is_instance_valid(enemy.player_ref):
 		var player_stealth = enemy.player_ref.get_node("StatusEffectComponent").has_effect("stealth")
 		if not player_stealth:
 			var dist = enemy.global_position.distance_to(enemy.player_ref.global_position)
@@ -39,6 +38,12 @@ func physics_update(delta: float) -> void:
 			enemy.set_facing(direction)
 			wait_timer = randf_range(0.5, 1.5)
 			
-		if enemy.is_on_wall():
-			direction *= -1
-			enemy.set_facing(direction)
+		# УМНЫЙ ПРЫЖОК В ПАТРУЛЕ
+		if enemy.is_on_wall() and enemy.is_on_floor() and enemy.jump_cooldown_timer <= 0.0:
+			var wall_check = enemy.get_node("WallCheck")
+			if not wall_check.is_colliding():
+				enemy.velocity.y = enemy.jump_velocity
+				enemy.jump_cooldown_timer = 1.0
+			else:
+				direction *= -1
+				enemy.set_facing(direction)

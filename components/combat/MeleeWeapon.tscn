@@ -2,8 +2,19 @@
 
 [ext_resource type="Script" uid="uid://dchbdc5fsaqnm" path="res://components/combat/melee_weapon_component.gd" id="1_j7772"]
 [ext_resource type="PackedScene" uid="uid://d3d5ytfwge3ev" path="res://components/combat/HitboxComponent.tscn" id="2_m8qys"]
+[ext_resource type="SpriteFrames" uid="uid://ddqltcqox74mw" path="res://assets/sprites/vfx/player_slash.tres" id="3_m8qys"]
 
 [node name="MeleeWeapon" type="Node2D" unique_id=631570785]
 script = ExtResource("1_j7772")
+hitbox_offset = 0.0
 
 [node name="HitboxComponent" parent="." unique_id=1685417505 instance=ExtResource("2_m8qys")]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=19446879]
+z_index = 10
+position = Vector2(-11, -4)
+rotation = -1.5707964
+scale = Vector2(0.46169168, 0.22715235)
+sprite_frames = ExtResource("3_m8qys")
+frame = 4
+frame_progress = 1.0

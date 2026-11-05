@@ -1,7 +1,8 @@
 extends CharacterBody2D
 class_name Entity
 
-enum State { IDLE, RUN, JUMP, PATROL, ALERT, CHASE, RETURN, REPOSITION, ATTACK, DASH }
+# Глобальный список всех возможных состояний
+enum State { IDLE, RUN, JUMP, DASH, PATROL, ALERT, CHASE, RETURN, REPOSITION, ATTACK, AIR_DASH_ATTACK, GROUND_SLAM }
 
 var state_machine: Node = null
 var knockback_timer: float = 0.0
